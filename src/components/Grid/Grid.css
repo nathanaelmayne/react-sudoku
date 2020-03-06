@@ -1,0 +1,11 @@
+.Cells {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    width: max-content;
+    padding: 24px;
+}
+
+.RegionBorder {
+    stroke:rgb(255,0,0);
+    stroke-width:2;
+}
