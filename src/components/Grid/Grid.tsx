@@ -1,12 +1,17 @@
 import React from 'react';
 import './Grid.css';
-import Cell from '../Cell/Cell';
+import { Cell } from '../Cell/Cell';
 
 function Grid() {
   let cells: any = [];
 
   for (var i= 0 ; i < 81; i++) {
-    cells.push(<Cell></Cell>)
+    // let number = Math.floor(Math.random() * 10);
+    let number = Math.floor(Math.random() * 10);
+    cells.push(
+      <Cell number={number}>
+      </Cell>
+    )
   }
 
   return (

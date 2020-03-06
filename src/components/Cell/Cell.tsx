@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './Cell.css';
 
-function Cell() {
-
-  return (
-    <div className="Cell">
-      <div className="Number">
-          {Math.floor(Math.random() * 10)}
-      </div>
-    </div>
-  );
+type CellProps = {
+  number: number
 }
 
-export default Cell;
+export class Cell extends Component<CellProps> {
+
+  render() {
+    return (
+      <div className="Cell">
+        <div className="Number">
+          {this.props.number}
+        </div>
+      </div>
+    );
+  }
+  
+}
