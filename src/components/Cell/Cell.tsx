@@ -18,6 +18,19 @@ export class Cell extends Component<CellProps> {
     this.onCellClick = this.onCellClick.bind(this);
   }
 
+  handleKeyDown(event: KeyboardEvent){
+    if(event.keyCode === 97) {
+    }
+  }
+
+  componentDidMount(){
+    document.addEventListener("keydown", this.handleKeyDown, false);
+  }
+  
+  componentWillUnmount(){
+    document.removeEventListener("keydown", this.handleKeyDown, false);
+  }
+
   onCellClick() {
     this.props.onCellSelected();
   }
