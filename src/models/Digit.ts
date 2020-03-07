@@ -4,4 +4,5 @@ export interface Digit {
   location: CellLocation;
   index: number;
   number?: number;
+  selected: boolean;
 }
