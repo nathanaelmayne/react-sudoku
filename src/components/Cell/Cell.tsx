@@ -6,6 +6,7 @@ import { Digit } from '../../models/Digit';
 
 interface CellProps {
   digit?: Digit;
+  onCellSelected: () => void;
 };
 
 interface State {
@@ -25,6 +26,7 @@ export class Cell extends Component<CellProps, State> {
 
   onCellClick(event: React.MouseEvent) {
     this.setState({selected: !this.state.selected});
+    this.props.onCellSelected();
   }
 
   render() {

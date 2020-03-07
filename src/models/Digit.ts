@@ -1,7 +1,7 @@
-import { CellLocation } from './CellLocation';
+import { CellLocation } from "./CellLocation";
 
 export interface Digit {
   location: CellLocation;
   index: number;
-  number: number;
+  number?: number;
 }
