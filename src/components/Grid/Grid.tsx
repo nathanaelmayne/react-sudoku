@@ -3,11 +3,15 @@ import "./Grid.css";
 import * as React from "react";
 
 import { Puzzle } from "../../models/Puzzle";
-import { Cell, CellProps } from "../Cell/Cell";
+import { Cell } from "../Cell/Cell";
 import { Digit } from "../../models/Digit";
 import { CellLocation } from "../../models/CellLocation";
 
-export default class Grid extends React.Component<{}> {
+interface State {
+  selectedCellIndex?: number;
+}
+
+export default class Grid extends React.Component<{}, State> {
   cells: any;
   puzzle: Puzzle;
 
@@ -24,19 +28,12 @@ export default class Grid extends React.Component<{}> {
       }
     };
 
+    this.state = {
+      selectedCellIndex: undefined
+    };
+
     this.handleCellSelected = this.handleCellSelected.bind(this);
-  }
-
-  render() {
     this.getPuzzle();
-    this.getDisplayedDigits();
-
-    return (
-      <div className="Grid">
-        <div className="Cells">{this.cells}</div>
-        <div className=""></div>
-      </div>
-    );
   }
 
   getPuzzle() {
@@ -66,28 +63,21 @@ export default class Grid extends React.Component<{}> {
     ];
   }
 
-  handleCellSelected(digit: Digit) {
-    digit.number = 8;
+  handleCellSelected = (digit: Digit) => {
     this.cells.forEach((c: any) => {
-      if (c.props.digit.index === digit.index) {
-        c.props.digit.selected = true;
-        return;
-      }
-
-      c.props.digit.selected = false;
-      //c.state.setState({selected: false});
+      this.setState({selectedCellIndex: digit.index});
     });
-    console.log("selected " + digit.location.row + " " + digit.location.column);
   }
 
   getDisplayedDigits() {
-    for (var i = 0; i < 81; i++) {
+    this.cells = [];
+    for (let i = 0; i < 81; i++) {
       let digit = this.getDigitAtGridIndex(i);
       this.cells.push(
         <Cell
           key={i}
           digit={digit}
-          selected={digit.selected}
+          selected={this.state.selectedCellIndex === digit.index}
           onCellSelected={() => this.handleCellSelected(digit)}
         ></Cell>
       );
@@ -104,7 +94,7 @@ export default class Grid extends React.Component<{}> {
       : ({
           location: this.calculateLocationFromIndex(index),
           index: index,
-          number: undefined
+          number: undefined 
         } as Digit);
   }
 
@@ -138,5 +128,15 @@ export default class Grid extends React.Component<{}> {
     if (i >= 54 && i <= 62) return i - 53;
     if (i >= 63 && i <= 71) return i - 62;
     if (i >= 72 && i <= 80) return i - 71;
+  }
+
+  render() {
+    this.getDisplayedDigits();
+
+    return (
+      <div className="Grid">
+        <div className="Cells">{this.cells}</div>
+      </div>
+    );
   }
 }
