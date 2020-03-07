@@ -1,13 +1,13 @@
-import React from 'react';
-import './App.css';
-import Grid from '../Grid/Grid';
+import React from "react";
+import "./App.css";
+import Grid from "../Grid/Grid";
 
-function App() {
-  return (
-    <div className="App">
-        <Grid/>
-    </div>
-  );
+export default class App extends React.Component<{}> {
+  public render() {
+    return (
+      <div className="App">
+        <Grid />
+      </div>
+    );
+  }
 }
-
-export default App;

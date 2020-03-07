@@ -1,28 +1,77 @@
-import React from 'react';
 import './Grid.css';
+
+import * as React from 'react';
+
+import { Puzzle } from '../../models/Puzzle';
 import { Cell } from '../Cell/Cell';
+import { Digit } from '../../models/Digit';
 
-function Grid() {
-  let cells: any = [];
+export default class Grid extends React.Component<{}> {
+  cells: any;
+  puzzle: Puzzle;
 
-  for (var i= 0 ; i < 81; i++) {
-    // let number = Math.floor(Math.random() * 10);
-    let number = Math.floor(Math.random() * 10);
-    cells.push(
-      <Cell number={number}>
-      </Cell>
-    )
+  constructor(props: {}) {
+    super(props)
+
+    this.cells = [];
+    this.puzzle = {
+      givens: [],
+      solution: [],
+      playerChanges: {
+        placedDigits: [],
+        candidates: []
+      }
+    };
   }
 
-  return (
-    <div className="Grid">
-      <div className="Cells">
-        {cells}
-      </div>
-      <div className="RegionBorder">
-      </div>
-    </div>
-  );
-}
+  render() {
+    this.getPuzzle();
+    this.getDisplayedDigits();
 
-export default Grid;
+    return (
+      <div className="Grid">
+        <div className="Cells">
+          {this.cells}
+        </div>
+        <div className="">
+        </div>
+      </div>
+    );
+  }
+
+  getPuzzle() {
+    this.puzzle.givens = this.getGivens();
+  }
+
+  getGivens(): Digit[] {
+    return [{
+      location: {
+        row: 1, 
+        column: 1
+      },
+      index: 0,
+      number: 1
+    }, {
+      location: {
+        row: 9,
+        column: 9
+      },
+      index: 80,
+      number: 9
+    }]
+  }
+
+  getDisplayedDigits() {
+    for (var i = 0; i < 81; i++) {
+      let digit = this.getDigitAtGridIndex(i);
+      this.cells.push(
+        <Cell digit={digit}>
+        </Cell>
+      )
+    }
+  }
+
+  getDigitAtGridIndex(index: number) {
+    return this.puzzle.givens.find(g => g.index === index) || this.puzzle.playerChanges.placedDigits.find(g => g.index === index);
+  }
+}

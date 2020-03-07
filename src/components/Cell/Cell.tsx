@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
 import './Cell.css';
 
+import React, { Component } from 'react';
+
+import { Digit } from '../../models/Digit';
+
 type CellProps = {
-  number: number
-}
+  digit?: Digit;
+};
 
 export class Cell extends Component<CellProps> {
 
   render() {
     return (
       <div className="Cell">
-        <div className="Number">
-          {this.props.number}
-        </div>
+        <div className="Digit">{this.props.digit?.number}</div>
       </div>
     );
   }
-  
 }
