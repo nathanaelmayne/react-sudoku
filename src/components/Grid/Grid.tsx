@@ -65,7 +65,7 @@ export default class Grid extends React.Component<{}> {
     for (var i = 0; i < 81; i++) {
       let digit = this.getDigitAtGridIndex(i);
       this.cells.push(
-        <Cell digit={digit}>
+        <Cell key={i} digit={digit}>
         </Cell>
       )
     }

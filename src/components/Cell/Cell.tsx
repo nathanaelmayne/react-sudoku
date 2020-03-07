@@ -4,15 +4,32 @@ import React, { Component } from 'react';
 
 import { Digit } from '../../models/Digit';
 
-type CellProps = {
+interface CellProps {
   digit?: Digit;
 };
 
-export class Cell extends Component<CellProps> {
+interface State {
+  selected: boolean;
+}
+
+export class Cell extends Component<CellProps, State> {
+
+  constructor(props: CellProps) {
+    super(props);
+    this.state = {
+      selected: false
+    };
+
+    this.onCellClick = this.onCellClick.bind(this);
+  }
+
+  onCellClick(event: React.MouseEvent) {
+    this.setState({selected: !this.state.selected});
+  }
 
   render() {
     return (
-      <div className="Cell">
+      <div className={`Cell${this.state.selected ? " Selected" : ""}`} onClick={this.onCellClick}>
         <div className="Digit">{this.props.digit?.number}</div>
       </div>
     );
